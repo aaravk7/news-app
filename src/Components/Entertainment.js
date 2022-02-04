@@ -20,7 +20,6 @@ const Entertainment = () => {
 
             let data = await response.json();
             setNews(data.articles);
-            console.log(data);
         }
 
         getData();
@@ -43,7 +42,7 @@ const Entertainment = () => {
                 <div className="row">
                     {news.map(newsEl => {
                         return (
-                            <div className="col-md-4 mb-4" key={newsEl._id}>
+                            <div className="col-md-6 col-xl-4 mb-4" key={newsEl._id}>
                                 <NewsItem title={newsEl.title} desc={newsEl.excerpt}
                                     image={newsEl.media} newsLink={newsEl.link} pDate={newsEl.published_date} source={newsEl.rights} />
                             </div>

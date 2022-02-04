@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [searchText, setSearchText] = useState("");
@@ -14,6 +14,9 @@ const Navbar = (props) => {
         setSearchText("");
     }
 
+    let location = useLocation();
+    let path = location.pathname;
+
     return (
         <nav className={`navbar navbar-expand-lg ${props.dark === true ? "navbar-dark bg-dark" : "navbar-light bg-light"}`}>
             <div className="container-fluid">
@@ -24,21 +27,22 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <Link className={`nav-link ${path === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/tech">Technology</Link>
+                            <Link className={`nav-link ${path === "/tech" ? "active" : ""}`} to="/tech">Technology</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/finance">Finance</Link>
+                            <Link className={`nav-link ${path === "/finance" ? "active" : ""}`} to="/finance">Finance</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/entertainment">Entertainment</Link>
+                            <Link className={`nav-link ${path === "/entertainment" ? "active" : ""}`} to="/entertainment">Entertainment</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/sports">Sports</Link>
+                            <Link className={`nav-link ${path === "/sports" ? "active" : ""}`} to="/sports">Sports</Link>
                         </li>
                     </ul>
+
                     {
                         props.search === true && <div className="d-flex">
                             <input id="searchBar" className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={inputChangeHandler} value={searchText} />
