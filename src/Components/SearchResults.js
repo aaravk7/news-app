@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import SearchContext from '../Context/SearchContext';
 import NewsItem from './NewsItem';
 
-const SearchResults = (props) => {
+const SearchResults = () => {
+    const SearchData = useContext(SearchContext);
+
     const [news, setNews] = useState(null);
     const [status, setStatus] = useState("ok");
 
     useEffect(() => {
         async function getData() {
-            let url = `https://api.newscatcherapi.com/v2/search?q=${props.searchText}&page_size=18`;
+            let url = `https://api.newscatcherapi.com/v2/search?q=${SearchData.searchText}&page_size=18`;
             let response = await fetch(url, {
                 method: "GET",
                 headers: {
@@ -22,17 +25,14 @@ const SearchResults = (props) => {
             let data = await response.json();
             setNews(data.articles);
             setStatus(data.status);
-            console.log(data);
         }
 
         getData();
-
-        // eslint-disable-next-line
-    }, []);
+    }, [SearchData.searchText]);
 
     if (status === "No matches for your search.") {
         return (
-            <h1 className='display-5 text-center mt-4'>No results found for {props.searchText}</h1>
+            <h1 className='display-5 text-center mt-4'>No results found for {SearchData.searchText}</h1>
         )
     }
 
@@ -48,7 +48,7 @@ const SearchResults = (props) => {
 
     return (
         <>
-            <h1 className='display-5 text-center mt-4'>{props.searchText} Results</h1>
+            <h1 className='display-5 text-center mt-4'>{SearchData.searchText} Results</h1>
             <div className="container mt-4">
                 <div className="row">
                     {news.map(newsEl => {

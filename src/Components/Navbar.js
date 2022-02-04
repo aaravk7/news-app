@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import SearchContext from '../Context/SearchContext';
 
 const Navbar = (props) => {
+    const SearchData = useContext(SearchContext);
+
     const [searchText, setSearchText] = useState("");
 
     const inputChangeHandler = (e) => {
@@ -10,12 +13,12 @@ const Navbar = (props) => {
     }
 
     const search = () => {
-        props.searchT(searchText);
+        SearchData.setSearchText(searchText);
         setSearchText("");
     }
 
-    let location = useLocation();
-    let path = location.pathname;
+    // let location = useLocation();
+    // let path = location.pathname;
 
     return (
         <nav className={`navbar navbar-expand-lg ${props.dark === true ? "navbar-dark bg-dark" : "navbar-light bg-light"}`}>
@@ -27,19 +30,19 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
+                            <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === "/tech" ? "active" : ""}`} to="/tech">Technology</Link>
+                            <NavLink className="nav-link" to="/tech">Technology</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === "/finance" ? "active" : ""}`} to="/finance">Finance</Link>
+                            <NavLink className="nav-link" to="/finance">Finance</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === "/entertainment" ? "active" : ""}`} to="/entertainment">Entertainment</Link>
+                            <NavLink className="nav-link" to="/entertainment">Entertainment</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link ${path === "/sports" ? "active" : ""}`} to="/sports">Sports</Link>
+                            <NavLink className="nav-link" to="/sports">Sports</NavLink>
                         </li>
                     </ul>
 

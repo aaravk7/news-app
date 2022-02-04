@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewsItem from './NewsItem';
 
+
 const Tech = () => {
     const [news, setNews] = useState(null);
 

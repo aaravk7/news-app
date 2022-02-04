@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import "./App.css"
@@ -12,28 +12,24 @@ import Sports from './Components/Sports';
 import Finance from './Components/Finance';
 import Entertainment from './Components/Entertainment';
 import SearchResults from './Components/SearchResults';
+import SearchState from './Context/SearchState';
 
 const App = () => {
-  const [searchText, setSearchText] = useState("");
-
-  const searchT = (text) => {
-    setSearchText(text);
-  }
 
   return (
-    <>
+    <SearchState>
       <Router>
-        <Navbar title="News App" dark={true} search={true} searchT={searchT} />
+        <Navbar title="News App" dark={true} search={true} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tech" element={<Tech />} />
           <Route path="/sports" element={<Sports />} />
           <Route path="/finance" element={<Finance />} />
           <Route path="/entertainment" element={<Entertainment />} />
-          <Route path="/search" element={<SearchResults searchText={searchText} />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </Router>
-    </>
+    </SearchState>
   )
 };
 

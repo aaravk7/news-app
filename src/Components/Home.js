@@ -24,7 +24,6 @@ const Home = () => {
             let data = await response.json();
             setNews(news.concat(data.articles));
             setTotalNews(data.total_hits);
-            console.log(data);
         }
 
         getData();
